@@ -7,6 +7,7 @@ const games = [
     url: 'https://juha-rajamaki.github.io/jumpgame/',
     icon: '🦘',
     accent: '#0ea5e9',
+    gradient: 'linear-gradient(135deg, #0ea5e9, #38bdf8, #7dd3fc)',
     tags: ['Platformer', 'Skill', 'Mobile Friendly'],
   },
   {
@@ -15,6 +16,7 @@ const games = [
     url: 'https://juha-rajamaki.github.io/SpaceSurvivalShooter/',
     icon: '🚀',
     accent: '#a855f7',
+    gradient: 'linear-gradient(135deg, #7c3aed, #a855f7, #e879f9)',
     tags: ['Shooter', 'Space', '10 Levels'],
   },
   {
@@ -23,6 +25,7 @@ const games = [
     url: 'https://juha-rajamaki.github.io/spaceinvaders/',
     icon: '👾',
     accent: '#10b981',
+    gradient: 'linear-gradient(135deg, #059669, #10b981, #6ee7b7)',
     tags: ['Arcade', 'Classic', 'Retro'],
   },
   {
@@ -31,6 +34,7 @@ const games = [
     url: 'https://juha-rajamaki.github.io/naqufight/',
     icon: '⚔️',
     accent: '#f97316',
+    gradient: 'linear-gradient(135deg, #ea580c, #f97316, #fdba74)',
     tags: ['Fighting', 'Pixel Art', '3D'],
   },
 ]
@@ -42,7 +46,7 @@ function GameCard({ game }) {
       target="_blank"
       rel="noopener noreferrer"
       className="game-card"
-      style={{ '--card-accent': game.accent }}
+      style={{ '--card-accent': game.accent, '--card-gradient': game.gradient }}
     >
       <div className="game-thumbnail-wrapper">
         <div className="game-thumbnail">

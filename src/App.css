@@ -56,6 +56,7 @@
 .game-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
+  border-top: 3px solid var(--card-accent);
   border-radius: 16px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
@@ -81,7 +82,15 @@
   aspect-ratio: 16 / 10;
   overflow: hidden;
   position: relative;
-  background: var(--bg-secondary);
+  background: var(--card-gradient);
+  background-size: 200% 200%;
+  animation: gradientMove 6s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .game-thumbnail {
@@ -94,7 +103,8 @@
 }
 
 .game-icon {
-  font-size: 4rem;
+  font-size: 4.5rem;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
 }
 
 .game-info {
@@ -144,10 +154,10 @@
   gap: 8px;
   margin-top: 16px;
   padding: 10px 20px;
-  background: color-mix(in srgb, var(--card-accent) 10%, transparent);
-  border: 1px solid color-mix(in srgb, var(--card-accent) 30%, transparent);
+  background: var(--card-accent);
+  border: none;
   border-radius: 8px;
-  color: var(--card-accent);
+  color: #ffffff;
   font-weight: 700;
   font-size: 0.85rem;
   letter-spacing: 0.5px;
@@ -155,7 +165,7 @@
 }
 
 .game-card:hover .play-button {
-  background: color-mix(in srgb, var(--card-accent) 20%, transparent);
+  filter: brightness(1.1);
 }
 
 /* Footer */
