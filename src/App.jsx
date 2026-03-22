@@ -1,4 +1,5 @@
 import './App.css'
+import CanvasBackground from './CanvasBackground'
 
 const games = [
   {
@@ -8,6 +9,7 @@ const games = [
     icon: '🦘',
     accent: '#0ea5e9',
     gradient: 'linear-gradient(135deg, #0ea5e9, #38bdf8, #7dd3fc)',
+    canvasType: 'platforms',
     tags: ['Platformer', 'Skill', 'Mobile Friendly'],
   },
   {
@@ -17,6 +19,7 @@ const games = [
     icon: '🚀',
     accent: '#a855f7',
     gradient: 'linear-gradient(135deg, #7c3aed, #a855f7, #e879f9)',
+    canvasType: 'starfield',
     tags: ['Shooter', 'Space', '10 Levels'],
   },
   {
@@ -26,6 +29,7 @@ const games = [
     icon: '👾',
     accent: '#10b981',
     gradient: 'linear-gradient(135deg, #059669, #10b981, #6ee7b7)',
+    canvasType: 'matrix',
     tags: ['Arcade', 'Classic', 'Retro'],
   },
   {
@@ -35,6 +39,7 @@ const games = [
     icon: '⚔️',
     accent: '#f97316',
     gradient: 'linear-gradient(135deg, #ea580c, #f97316, #fdba74)',
+    canvasType: 'fire',
     tags: ['Fighting', 'Pixel Art', '3D'],
   },
 ]
@@ -49,6 +54,7 @@ function GameCard({ game }) {
       style={{ '--card-accent': game.accent, '--card-gradient': game.gradient }}
     >
       <div className="game-thumbnail-wrapper">
+        <CanvasBackground type={game.canvasType} />
         <div className="game-thumbnail">
           <span className="game-icon">{game.icon}</span>
         </div>
