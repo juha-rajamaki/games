@@ -6,7 +6,7 @@ const games = [
     description: 'Jump across 50 platforms with precision timing. Charge your jump, land perfectly, and earn bonus lives. Progressive difficulty with bobbing platforms!',
     url: 'https://juha-rajamaki.github.io/jumpgame/',
     icon: '🦘',
-    accent: '#00f0ff',
+    accent: '#0ea5e9',
     tags: ['Platformer', 'Skill', 'Mobile Friendly'],
   },
   {
@@ -14,7 +14,7 @@ const games = [
     description: 'Battle through 10 levels of space combat. Manage ammo, missiles, and shields as you face increasingly dangerous enemies and a final boss encounter.',
     url: 'https://juha-rajamaki.github.io/SpaceSurvivalShooter/',
     icon: '🚀',
-    accent: '#ff00aa',
+    accent: '#a855f7',
     tags: ['Shooter', 'Space', '10 Levels'],
   },
   {
@@ -22,7 +22,7 @@ const games = [
     description: 'The classic arcade experience reborn in the browser. Defend Earth from waves of descending alien invaders using arrow keys and spacebar.',
     url: 'https://juha-rajamaki.github.io/spaceinvaders/',
     icon: '👾',
-    accent: '#00ff88',
+    accent: '#10b981',
     tags: ['Arcade', 'Classic', 'Retro'],
   },
   {
@@ -30,7 +30,7 @@ const games = [
     description: 'A pixel-art fighting game with 3D elements. Battle opponents in this retro-styled combat game rendered with both Canvas 2D and Three.js.',
     url: 'https://juha-rajamaki.github.io/naqufight/',
     icon: '⚔️',
-    accent: '#ff6b35',
+    accent: '#f97316',
     tags: ['Fighting', 'Pixel Art', '3D'],
   },
 ]
@@ -69,7 +69,7 @@ function App() {
   return (
     <div className="app">
       <header className="header">
-        <h1>GAME ARCADE</h1>
+        <h1>NAQUGAMES</h1>
         <p>A collection of browser games — pick one and play!</p>
       </header>
 
