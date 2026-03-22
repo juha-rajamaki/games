@@ -34,14 +34,14 @@ function CanvasBackground({ type, gradient }) {
         }))
 
       case 'matrix':
-        return Array.from({ length: 20 }, () => ({
+        return Array.from({ length: 35 }, () => ({
           x: Math.floor(Math.random() * (w / 14)) * 14,
           y: Math.random() * h,
           speed: 1 + Math.random() * 3,
-          chars: Array.from({ length: 5 + Math.floor(Math.random() * 8) }, () =>
+          chars: Array.from({ length: 6 + Math.floor(Math.random() * 10) }, () =>
             String.fromCharCode(0x30A0 + Math.random() * 96)
           ),
-          opacity: 0.3 + Math.random() * 0.7,
+          opacity: 0.6 + Math.random() * 0.4,
         }))
 
       case 'fire':
@@ -140,22 +140,29 @@ function CanvasBackground({ type, gradient }) {
         }
 
         case 'matrix':
-          ctx.font = '12px monospace'
+          ctx.font = 'bold 16px monospace'
           particles.forEach((p) => {
             p.y += p.speed * speed
             if (p.y > h + 100) {
-              p.y = -p.chars.length * 14
-              p.x = Math.floor(Math.random() * (w / 14)) * 14
+              p.y = -p.chars.length * 18
+              p.x = Math.floor(Math.random() * (w / 18)) * 18
             }
             p.chars.forEach((char, i) => {
-              const cy = p.y + i * 14
-              if (cy < -14 || cy > h + 14) return
+              const cy = p.y + i * 18
+              if (cy < -18 || cy > h + 18) return
               const isHead = i === p.chars.length - 1
-              ctx.fillStyle = isHead
-                ? '#4ade80'
-                : `rgba(16, 185, 129, ${p.opacity * (i / p.chars.length)})`
+              if (isHead) {
+                ctx.fillStyle = '#ffffff'
+                ctx.shadowColor = '#4ade80'
+                ctx.shadowBlur = 8
+              } else {
+                ctx.shadowBlur = 0
+                const fade = 0.3 + 0.7 * (i / p.chars.length)
+                ctx.fillStyle = `rgba(74, 222, 128, ${p.opacity * fade})`
+              }
               ctx.fillText(char, p.x, cy)
             })
+            ctx.shadowBlur = 0
             // randomly change chars
             if (Math.random() < 0.05) {
               const idx = Math.floor(Math.random() * p.chars.length)
