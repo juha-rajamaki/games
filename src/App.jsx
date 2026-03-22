@@ -1,9 +1,13 @@
+import { useEffect, useState } from 'react'
 import './App.css'
 import CanvasBackground from './CanvasBackground'
+import { incrementPlayCount } from './firebase'
+import StatsPage from './StatsPage'
 
-const games = [
+export const games = [
   {
     title: 'Platform Hopper',
+    slug: 'platform-hopper',
     description: 'Jump across 50 platforms with precision timing. Charge your jump, land perfectly, and earn bonus lives. Progressive difficulty with bobbing platforms!',
     url: 'https://juha-rajamaki.github.io/jumpgame/',
     icon: '🦘',
@@ -14,6 +18,7 @@ const games = [
   },
   {
     title: 'Space Survival Shooter',
+    slug: 'space-survival-shooter',
     description: 'Battle through 10 levels of space combat. Manage ammo, missiles, and shields as you face increasingly dangerous enemies and a final boss encounter.',
     url: 'https://juha-rajamaki.github.io/SpaceSurvivalShooter/',
     icon: '🚀',
@@ -24,6 +29,7 @@ const games = [
   },
   {
     title: 'Space Invaders',
+    slug: 'space-invaders',
     description: 'The classic arcade experience reborn in the browser. Defend Earth from waves of descending alien invaders using arrow keys and spacebar.',
     url: 'https://juha-rajamaki.github.io/spaceinvaders/',
     icon: '👾',
@@ -34,6 +40,7 @@ const games = [
   },
   {
     title: 'Naqu Fight',
+    slug: 'naqu-fight',
     description: 'A pixel-art fighting game with 3D elements. Battle opponents in this retro-styled combat game rendered with both Canvas 2D and Three.js.',
     url: 'https://juha-rajamaki.github.io/naqufight/',
     icon: '⚔️',
@@ -52,6 +59,7 @@ function GameCard({ game }) {
       rel="noopener noreferrer"
       className="game-card"
       style={{ '--card-accent': game.accent, '--card-gradient': game.gradient }}
+      onClick={() => incrementPlayCount(game.slug)}
     >
       <div className="game-thumbnail-wrapper">
         <CanvasBackground type={game.canvasType} />
@@ -76,11 +84,34 @@ function GameCard({ game }) {
 }
 
 function App() {
+  const [page, setPage] = useState('home')
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const redirect = params.get('p')
+    if (redirect) {
+      const isSafePath = /^\/[^/]/.test(redirect) || redirect === '/'
+      if (isSafePath) {
+        window.history.replaceState(null, '', redirect)
+      }
+    }
+
+    const path = window.location.pathname.replace(/\/+$/, '') || '/'
+    if (path === '/stats') {
+      setPage('stats')
+    }
+  }, [])
+
+  if (page === 'stats') {
+    return <StatsPage />
+  }
+
   return (
     <div className="app">
       <header className="header">
         <h1>NAQUGAMES</h1>
         <p>A collection of browser games — pick one and play!</p>
+        <a href="/stats/" className="stats-link">View Stats</a>
       </header>
 
       <main className="games-grid">
