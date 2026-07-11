@@ -6,17 +6,6 @@ import StatsPage from './StatsPage'
 
 export const games = [
   {
-    title: 'Platform Hopper',
-    slug: 'platform-hopper',
-    description: 'Jump across 50 platforms with precision timing. Charge your jump, land perfectly, and earn bonus lives. Progressive difficulty with bobbing platforms!',
-    url: 'https://juha-rajamaki.github.io/jumpgame/',
-    icon: '🦘',
-    accent: '#0ea5e9',
-    gradient: 'linear-gradient(135deg, #0ea5e9, #38bdf8, #7dd3fc)',
-    canvasType: 'platforms',
-    tags: ['Platformer', 'Skill', 'Mobile Friendly'],
-  },
-  {
     title: 'Space Survival Shooter',
     slug: 'space-survival-shooter',
     description: 'Battle through 10 levels of space combat. Manage ammo, missiles, and shields as you face increasingly dangerous enemies and a final boss encounter.',
@@ -48,6 +37,28 @@ export const games = [
     gradient: 'linear-gradient(135deg, #ea580c, #f97316, #fdba74)',
     canvasType: 'fire',
     tags: ['Fighting', 'Pixel Art', '3D'],
+  },
+  {
+    title: 'Frankie\'s Jeep Game',
+    slug: 'jeep-game',
+    description: 'Take the wheel and drive Frankie\'s jeep through the terrain. A browser-based driving adventure with simple, fun vehicle controls.',
+    url: 'https://juha-rajamaki.github.io/jeepgame/',
+    icon: '🚙',
+    accent: '#65a30d',
+    gradient: 'linear-gradient(135deg, #4d7c0f, #65a30d, #a3e635)',
+    canvasType: 'platforms',
+    tags: ['Driving', 'Adventure', 'Casual'],
+  },
+  {
+    title: 'Platform Hopper',
+    slug: 'platform-hopper',
+    description: 'Jump across 50 platforms with precision timing. Charge your jump, land perfectly, and earn bonus lives. Progressive difficulty with bobbing platforms!',
+    url: 'https://juha-rajamaki.github.io/jumpgame/',
+    icon: '🦘',
+    accent: '#0ea5e9',
+    gradient: 'linear-gradient(135deg, #0ea5e9, #38bdf8, #7dd3fc)',
+    canvasType: 'platforms',
+    tags: ['Platformer', 'Skill', 'Mobile Friendly'],
   },
 ]
 
