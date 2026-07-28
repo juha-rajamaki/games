@@ -50,6 +50,17 @@ export const games = [
     tags: ['Driving', 'Adventure', 'Casual'],
   },
   {
+    title: 'SuperJerry',
+    slug: 'superjerry',
+    description: 'Help Jerry navigate through challenging levels in this fun browser-based platformer adventure.',
+    url: 'https://juha-rajamaki.github.io/superjerry/',
+    icon: '🐭',
+    accent: '#f59e0b',
+    gradient: 'linear-gradient(135deg, #d97706, #f59e0b, #fcd34d)',
+    canvasType: 'starfield',
+    tags: ['Platformer', 'Adventure', 'Casual'],
+  },
+  {
     title: 'Platform Hopper',
     slug: 'platform-hopper',
     description: 'Jump across 50 platforms with precision timing. Charge your jump, land perfectly, and earn bonus lives. Progressive difficulty with bobbing platforms!',
