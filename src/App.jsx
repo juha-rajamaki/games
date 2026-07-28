@@ -50,17 +50,6 @@ export const games = [
     tags: ['Driving', 'Adventure', 'Casual'],
   },
   {
-    title: 'SuperJerry',
-    slug: 'superjerry',
-    description: 'Help Jerry navigate through challenging levels in this fun browser-based platformer adventure.',
-    url: 'https://juha-rajamaki.github.io/superjerry/',
-    icon: '🐭',
-    accent: '#f59e0b',
-    gradient: 'linear-gradient(135deg, #d97706, #f59e0b, #fcd34d)',
-    canvasType: 'starfield',
-    tags: ['Platformer', 'Adventure', 'Casual'],
-  },
-  {
     title: 'Platform Hopper',
     slug: 'platform-hopper',
     description: 'Jump across 50 platforms with precision timing. Charge your jump, land perfectly, and earn bonus lives. Progressive difficulty with bobbing platforms!',
@@ -70,6 +59,42 @@ export const games = [
     gradient: 'linear-gradient(135deg, #0ea5e9, #38bdf8, #7dd3fc)',
     canvasType: 'platforms',
     tags: ['Platformer', 'Skill', 'Mobile Friendly'],
+  },
+  {
+    title: 'SuperJerry',
+    slug: 'superjerry',
+    description: 'Help Jerry navigate through challenging levels in this fun browser-based platformer adventure.',
+    url: 'https://juha-rajamaki.github.io/superjerry/',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 32" width="48" height="55" style={{imageRendering:'pixelated'}}>
+        {/* Overalls */}
+        <rect x="4" y="14" width="20" height="18" fill="#2255cc"/>
+        {/* Shirt */}
+        <rect x="4" y="8" width="20" height="10" fill="#dd2222"/>
+        {/* Skin */}
+        <rect x="6" y="2" width="16" height="12" fill="#f4b06a"/>
+        {/* Cap */}
+        <rect x="4" y="0" width="20" height="6" fill="#dd2222"/>
+        <rect x="2" y="4" width="4" height="4" fill="#dd2222"/>
+        {/* Eyes */}
+        <rect x="10" y="6" width="3" height="3" fill="#000"/>
+        <rect x="16" y="6" width="3" height="3" fill="#000"/>
+        {/* Mustache */}
+        <rect x="8" y="11" width="12" height="3" fill="#5c2e00"/>
+        {/* Buttons */}
+        <rect x="12" y="18" width="4" height="3" fill="#ffdd00"/>
+        {/* Shoes */}
+        <rect x="2" y="28" width="10" height="4" fill="#4a2200"/>
+        <rect x="16" y="28" width="10" height="4" fill="#4a2200"/>
+        {/* Badge */}
+        <rect x="5" y="17" width="4" height="4" fill="#ffaa00"/>
+        <rect x="6" y="18" width="2" height="2" fill="#ff4400"/>
+      </svg>
+    ),
+    accent: '#f59e0b',
+    gradient: 'linear-gradient(135deg, #d97706, #f59e0b, #fcd34d)',
+    canvasType: 'starfield',
+    tags: ['Platformer', 'Adventure', 'Casual'],
   },
 ]
 
@@ -86,7 +111,7 @@ function GameCard({ game }) {
       <div className="game-thumbnail-wrapper">
         <CanvasBackground type={game.canvasType} />
         <div className="game-thumbnail">
-          <span className="game-icon">{game.icon}</span>
+          <span className="game-icon" style={typeof game.icon !== 'string' ? {fontSize:'inherit',lineHeight:1} : {}}>{game.icon}</span>
         </div>
       </div>
       <div className="game-info">
