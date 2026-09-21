@@ -117,9 +117,16 @@ function applyDeepLinkRedirect() {
   const params = new URLSearchParams(window.location.search)
   const redirect = params.get('p')
   if (!redirect) return
-  const isSafePath = /^\/[^/]/.test(redirect) || redirect === '/'
-  if (isSafePath) {
-    window.history.replaceState(null, '', redirect)
+  try {
+    // Resolve against our own origin so crafted values such as /\evil.com,
+    // which browsers normalize to another origin, are rejected rather than
+    // thrown back at us as a SecurityError from replaceState.
+    const resolved = new URL(redirect, window.location.origin)
+    if (resolved.origin === window.location.origin) {
+      window.history.replaceState(null, '', resolved.pathname + resolved.search + resolved.hash)
+    }
+  } catch {
+    /* malformed redirect - stay on the current URL */
   }
 }
 
@@ -248,19 +255,22 @@ function App() {
     return () => window.removeEventListener('popstate', onPopState)
   }, [])
 
+  const currentGame = route.page === 'game' ? games.find((g) => g.slug === route.slug) : null
+
   useEffect(() => {
-    const game = route.page === 'game' ? games.find((g) => g.slug === route.slug) : null
-    if (game) {
-      document.title = `${game.title} — Naqugames`
+    if (currentGame) {
+      document.title = `${currentGame.title} — Naqugames`
     } else if (route.page === 'stats') {
       document.title = 'Stats — Naqugames'
     } else {
       document.title = 'Naqugames'
     }
-  }, [route])
+  }, [currentGame, route.page])
 
   const navigate = (path) => {
-    window.history.pushState(null, '', path)
+    if (path !== window.location.pathname) {
+      window.history.pushState(null, '', path)
+    }
     setRoute(resolveRoute())
     window.scrollTo(0, 0)
   }
@@ -269,11 +279,8 @@ function App() {
     return <StatsPage />
   }
 
-  if (route.page === 'game') {
-    const game = games.find((g) => g.slug === route.slug)
-    if (game) {
-      return <GamePage game={game} onNavigate={navigate} />
-    }
+  if (currentGame) {
+    return <GamePage game={currentGame} onNavigate={navigate} />
   }
 
   return (
