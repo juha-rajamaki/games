@@ -50,7 +50,7 @@ export const games = [
     tags: ['Driving', 'Adventure', 'Casual'],
   },
   {
-    title: 'Mesozoic Match',
+    title: 'DinoMemory',
     slug: 'dino-game',
     description: 'A dinosaur memory match game for one or two players. Flip cards to find matching pairs, collect your dinos, and read fun facts about each one you discover.',
     url: 'https://juha-rajamaki.github.io/dino-game/',
@@ -109,20 +109,60 @@ export const games = [
   },
 ]
 
-function GameCard({ game }) {
+const isPlainClick = (e) =>
+  !e.defaultPrevented && e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey
+
+// GitHub Pages serves 404.html for deep links; it bounces back here as /?p=/slug
+function applyDeepLinkRedirect() {
+  const params = new URLSearchParams(window.location.search)
+  const redirect = params.get('p')
+  if (!redirect) return
+  const isSafePath = /^\/[^/]/.test(redirect) || redirect === '/'
+  if (isSafePath) {
+    window.history.replaceState(null, '', redirect)
+  }
+}
+
+function resolveRoute() {
+  const path = window.location.pathname.replace(/\/+$/, '') || '/'
+  if (path === '/stats') return { page: 'stats' }
+  if (path === '/') return { page: 'home' }
+
+  const slug = path.slice(1)
+  if (games.some((game) => game.slug === slug)) return { page: 'game', slug }
+
+  window.history.replaceState(null, '', '/')
+  return { page: 'home' }
+}
+
+function GameIcon({ game }) {
+  return (
+    <span
+      className="game-icon"
+      style={typeof game.icon !== 'string' ? { fontSize: 'inherit', lineHeight: 1 } : {}}
+    >
+      {game.icon}
+    </span>
+  )
+}
+
+function GameCard({ game, onNavigate }) {
+  const path = `/${game.slug}`
   return (
     <a
-      href={game.url}
-      target="_blank"
-      rel="noopener noreferrer"
+      href={path}
       className="game-card"
       style={{ '--card-accent': game.accent, '--card-gradient': game.gradient }}
-      onClick={() => incrementPlayCount(game.slug)}
+      onClick={(e) => {
+        if (!isPlainClick(e)) return
+        e.preventDefault()
+        onNavigate(path)
+      }}
     >
       <div className="game-thumbnail-wrapper">
         <CanvasBackground type={game.canvasType} />
         <div className="game-thumbnail">
-          <span className="game-icon" style={typeof game.icon !== 'string' ? {fontSize:'inherit',lineHeight:1} : {}}>{game.icon}</span>
+          <GameIcon game={game} />
         </div>
       </div>
       <div className="game-info">
@@ -141,27 +181,99 @@ function GameCard({ game }) {
   )
 }
 
+function GamePage({ game, onNavigate }) {
+  return (
+    <div
+      className="app game-page"
+      style={{ '--card-accent': game.accent, '--card-gradient': game.gradient }}
+    >
+      <header className="game-page-header">
+        <a
+          href="/"
+          className="back-link"
+          onClick={(e) => {
+            if (!isPlainClick(e)) return
+            e.preventDefault()
+            onNavigate('/')
+          }}
+        >
+          ← All games
+        </a>
+        <h1 className="game-page-title">{game.title}</h1>
+      </header>
+
+      <main className="game-page-main">
+        <div className="game-hero">
+          <CanvasBackground type={game.canvasType} />
+          <div className="game-thumbnail">
+            <GameIcon game={game} />
+          </div>
+        </div>
+
+        <p className="game-page-description">{game.description}</p>
+
+        <div className="game-tags">
+          {game.tags.map((tag) => (
+            <span key={tag} className="tag">{tag}</span>
+          ))}
+        </div>
+
+        <a
+          className="play-button play-button-large"
+          href={game.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => incrementPlayCount(game.slug)}
+        >
+          ▶ Play Now
+        </a>
+      </main>
+
+      <footer className="footer">
+        Built with fun in mind
+      </footer>
+    </div>
+  )
+}
+
 function App() {
-  const [page, setPage] = useState('home')
+  const [route, setRoute] = useState(() => {
+    applyDeepLinkRedirect()
+    return resolveRoute()
+  })
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    const redirect = params.get('p')
-    if (redirect) {
-      const isSafePath = /^\/[^/]/.test(redirect) || redirect === '/'
-      if (isSafePath) {
-        window.history.replaceState(null, '', redirect)
-      }
-    }
-
-    const path = window.location.pathname.replace(/\/+$/, '') || '/'
-    if (path === '/stats') {
-      setPage('stats')
-    }
+    const onPopState = () => setRoute(resolveRoute())
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
   }, [])
 
-  if (page === 'stats') {
+  useEffect(() => {
+    const game = route.page === 'game' ? games.find((g) => g.slug === route.slug) : null
+    if (game) {
+      document.title = `${game.title} — Naqugames`
+    } else if (route.page === 'stats') {
+      document.title = 'Stats — Naqugames'
+    } else {
+      document.title = 'Naqugames'
+    }
+  }, [route])
+
+  const navigate = (path) => {
+    window.history.pushState(null, '', path)
+    setRoute(resolveRoute())
+    window.scrollTo(0, 0)
+  }
+
+  if (route.page === 'stats') {
     return <StatsPage />
+  }
+
+  if (route.page === 'game') {
+    const game = games.find((g) => g.slug === route.slug)
+    if (game) {
+      return <GamePage game={game} onNavigate={navigate} />
+    }
   }
 
   return (
@@ -174,7 +286,7 @@ function App() {
 
       <main className="games-grid">
         {games.map((game) => (
-          <GameCard key={game.title} game={game} />
+          <GameCard key={game.title} game={game} onNavigate={navigate} />
         ))}
       </main>
 

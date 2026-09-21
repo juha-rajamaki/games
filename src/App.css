@@ -179,6 +179,87 @@
   filter: brightness(1.1);
 }
 
+/* Game Page */
+.game-page-header {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 24px 8px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+
+.back-link {
+  display: inline-block;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: var(--card-accent);
+}
+
+.game-page-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: var(--card-accent);
+}
+
+.game-page-main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px 48px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.game-hero {
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  background: var(--card-gradient);
+  background-size: 200% 200%;
+  animation: gradientMove 6s ease infinite;
+  margin: 8px 0 24px;
+}
+
+.game-hero .game-icon {
+  font-size: 5rem;
+}
+
+.game-page-description {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 560px;
+}
+
+.game-page-main .game-tags {
+  justify-content: center;
+}
+
+.play-button-large {
+  font-size: 1rem;
+  padding: 14px 32px;
+  margin-top: 28px;
+  text-decoration: none;
+  justify-content: center;
+}
+
+.play-button-large:hover {
+  filter: brightness(1.1);
+}
+
 /* Footer */
 .footer {
   margin-top: auto;
@@ -291,5 +372,25 @@
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 12px;
     padding: 0 16px 32px;
+  }
+
+  .game-page-title {
+    font-size: 0.9rem;
+  }
+
+  .game-page-header {
+    padding: 24px 16px 8px;
+  }
+
+  .game-page-main {
+    padding: 0 16px 40px;
+  }
+
+  .game-hero {
+    aspect-ratio: 16 / 9;
+  }
+
+  .game-hero .game-icon {
+    font-size: 3.5rem;
   }
 }
