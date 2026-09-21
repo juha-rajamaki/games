@@ -55,9 +55,9 @@
 /* Game Card */
 .game-card {
   position: relative;
-  background: color-mix(in srgb, var(--bg-card) 78%, transparent);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  /* No backdrop-filter: it would re-blur every card on every background frame.
+     A mostly opaque card lets the pattern read as texture instead. */
+  background: color-mix(in srgb, var(--bg-card) 90%, transparent);
   border: 1px solid var(--border-color);
   border-top: 3px solid var(--card-accent);
   border-radius: 12px;
