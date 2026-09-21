@@ -50,6 +50,17 @@ export const games = [
     tags: ['Driving', 'Adventure', 'Casual'],
   },
   {
+    title: 'Mesozoic Match',
+    slug: 'dino-game',
+    description: 'A dinosaur memory match game for one or two players. Flip cards to find matching pairs, collect your dinos, and read fun facts about each one you discover.',
+    url: 'https://juha-rajamaki.github.io/dino-game/',
+    icon: '🦕',
+    accent: '#14b8a6',
+    gradient: 'linear-gradient(135deg, #0f766e, #14b8a6, #5eead4)',
+    canvasType: 'cards',
+    tags: ['Memory', 'Kids', '1-2 Players'],
+  },
+  {
     title: 'Platform Hopper',
     slug: 'platform-hopper',
     description: 'Jump across 50 platforms with precision timing. Charge your jump, land perfectly, and earn bonus lives. Progressive difficulty with bobbing platforms!',

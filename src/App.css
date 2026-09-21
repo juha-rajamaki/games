@@ -7,7 +7,7 @@
 /* Header */
 .header {
   text-align: center;
-  padding: 60px 20px 40px;
+  padding: 40px 20px 28px;
   position: relative;
   overflow: hidden;
 }
@@ -26,7 +26,7 @@
 
 .header h1 {
   font-family: 'Press Start 2P', cursive;
-  font-size: 2.5rem;
+  font-size: 2rem;
   background: linear-gradient(135deg, #6366f1, #a855f7);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -44,11 +44,11 @@
 /* Game Grid */
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
-  max-width: 1200px;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 16px;
+  max-width: 1320px;
   margin: 0 auto;
-  padding: 0 24px 60px;
+  padding: 0 24px 40px;
   width: 100%;
 }
 
@@ -57,7 +57,7 @@
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-top: 3px solid var(--card-accent);
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
@@ -79,7 +79,7 @@
 
 .game-thumbnail-wrapper {
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   position: relative;
   background: var(--card-gradient);
@@ -114,12 +114,12 @@
 }
 
 .game-icon {
-  font-size: 4.5rem;
+  font-size: 3rem;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
 }
 
 .game-info {
-  padding: 20px;
+  padding: 14px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -127,29 +127,29 @@
 
 .game-info h2 {
   font-family: 'Press Start 2P', cursive;
-  font-size: 0.85rem;
-  margin-bottom: 10px;
+  font-size: 0.7rem;
+  margin-bottom: 8px;
   color: var(--card-accent);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .game-info p {
   color: var(--text-secondary);
-  font-size: 0.9rem;
-  line-height: 1.6;
+  font-size: 0.8rem;
+  line-height: 1.5;
   flex: 1;
 }
 
 .game-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 16px;
+  gap: 6px;
+  margin-top: 12px;
 }
 
 .tag {
-  font-size: 0.7rem;
-  padding: 4px 10px;
+  font-size: 0.62rem;
+  padding: 3px 8px;
   border-radius: 20px;
   background: color-mix(in srgb, var(--card-accent) 10%, transparent);
   color: var(--card-accent);
@@ -163,14 +163,14 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 16px;
-  padding: 10px 20px;
+  margin-top: 12px;
+  padding: 8px 16px;
   background: var(--card-accent);
   border: none;
   border-radius: 8px;
   color: #ffffff;
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   letter-spacing: 0.5px;
   transition: background 0.2s ease;
 }
@@ -288,7 +288,8 @@
   }
 
   .games-grid {
-    grid-template-columns: 1fr;
-    padding: 0 16px 40px;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    padding: 0 16px 32px;
   }
 }

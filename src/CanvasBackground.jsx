@@ -56,6 +56,19 @@ function CanvasBackground({ type, gradient }) {
           life: Math.random(),
         }))
 
+      case 'cards':
+        return Array.from({ length: 10 }, () => ({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          width: 18 + Math.random() * 10,
+          height: 26 + Math.random() * 14,
+          flip: 0.8 + Math.random() * 1.2,
+          phase: Math.random() * Math.PI * 2,
+          drift: 0.15 + Math.random() * 0.35,
+          bob: 0.4 + Math.random() * 0.6,
+          face: ['#f7f2e5', '#f2ab3e', '#4ec0d6', '#8bd05c'][Math.floor(Math.random() * 4)],
+        }))
+
       default:
         return []
     }
@@ -70,6 +83,7 @@ function CanvasBackground({ type, gradient }) {
       const rect = canvas.parentElement.getBoundingClientRect()
       canvas.width = rect.width * window.devicePixelRatio
       canvas.height = rect.height * window.devicePixelRatio
+      ctx.setTransform(1, 0, 0, 1, 0, 0)
       ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
       canvas.style.width = rect.width + 'px'
       canvas.style.height = rect.height + 'px'
@@ -168,6 +182,27 @@ function CanvasBackground({ type, gradient }) {
               const idx = Math.floor(Math.random() * p.chars.length)
               p.chars[idx] = String.fromCharCode(0x30A0 + Math.random() * 96)
             }
+          })
+          break
+
+        case 'cards':
+          particles.forEach((p) => {
+            p.x += p.drift * speed
+            if (p.x > w + p.width) p.x = -p.width
+            const t = time * p.flip + p.phase
+            const scale = Math.cos(t)
+            const cardW = Math.max(1.5, Math.abs(scale) * p.width)
+            const bobY = Math.sin(time * p.bob + p.phase) * 8
+            const showFace = scale > 0
+            ctx.globalAlpha = 0.75
+            ctx.fillStyle = showFace ? p.face : '#17402C'
+            ctx.strokeStyle = 'rgba(242, 171, 62, 0.6)'
+            ctx.lineWidth = 1.5
+            ctx.beginPath()
+            ctx.roundRect(p.x - cardW / 2, p.y + bobY, cardW, p.height, 3)
+            ctx.fill()
+            ctx.stroke()
+            ctx.globalAlpha = 1
           })
           break
 
