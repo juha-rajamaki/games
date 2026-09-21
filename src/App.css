@@ -20,7 +20,7 @@
   transform: translateX(-50%);
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.18) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -54,7 +54,10 @@
 
 /* Game Card */
 .game-card {
-  background: var(--bg-card);
+  position: relative;
+  background: color-mix(in srgb, var(--bg-card) 78%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border: 1px solid var(--border-color);
   border-top: 3px solid var(--card-accent);
   border-radius: 12px;
@@ -70,7 +73,7 @@
 .game-card:hover {
   transform: translateY(-6px);
   border-color: var(--card-accent);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 0 20px color-mix(in srgb, var(--card-accent) 15%, transparent);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 24px color-mix(in srgb, var(--card-accent) 25%, transparent);
 }
 
 .game-card:hover .game-thumbnail {
@@ -78,6 +81,7 @@
 }
 
 .game-thumbnail-wrapper {
+  z-index: 1;
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
@@ -119,6 +123,8 @@
 }
 
 .game-info {
+  position: relative;
+  z-index: 1;
   padding: 14px;
   flex: 1;
   display: flex;
@@ -151,9 +157,9 @@
   font-size: 0.62rem;
   padding: 3px 8px;
   border-radius: 20px;
-  background: color-mix(in srgb, var(--card-accent) 10%, transparent);
+  background: color-mix(in srgb, var(--card-accent) 16%, transparent);
   color: var(--card-accent);
-  border: 1px solid color-mix(in srgb, var(--card-accent) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--card-accent) 32%, transparent);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -274,7 +280,7 @@
 .stats-link {
   display: inline-block;
   margin-top: 16px;
-  color: #6366f1;
+  color: #818cf8;
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 600;
@@ -283,7 +289,7 @@
 }
 
 .stats-link:hover {
-  color: #a855f7;
+  color: #c084fc;
 }
 
 /* Stats Page */

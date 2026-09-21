@@ -7,5 +7,11 @@ export default defineConfig({
   base: '/',
   server: {
     port: 5757,
+    // The project lives on the Windows filesystem (/mnt/c), where WSL gets no
+    // inotify events - without polling, Vite never picks up file changes.
+    watch: {
+      usePolling: true,
+      interval: 300,
+    },
   },
 })
