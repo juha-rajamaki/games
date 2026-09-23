@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import CanvasBackground from './CanvasBackground'
 import { incrementPlayCount } from './firebase'
@@ -189,12 +189,32 @@ function GameCard({ game, onNavigate }) {
 }
 
 function GamePage({ game, onNavigate }) {
+  const frameRef = useRef(null)
+
+  // Opening a game's page is starting the game, so count the play here -
+  // once per game per browser session, so refreshes and back/forward don't
+  // inflate the count (this also covers StrictMode's double effect in dev).
+  useEffect(() => {
+    const key = `played:${game.slug}`
+    try {
+      if (sessionStorage.getItem(key)) return
+      sessionStorage.setItem(key, '1')
+    } catch {
+      /* storage unavailable - count anyway */
+    }
+    incrementPlayCount(game.slug)
+  }, [game.slug])
+
+  const enterFullscreen = () => {
+    frameRef.current?.requestFullscreen?.().catch(() => {})
+  }
+
   return (
     <div
-      className="app game-page"
+      className="game-player"
       style={{ '--card-accent': game.accent, '--card-gradient': game.gradient }}
     >
-      <header className="game-page-header">
+      <header className="game-player-bar">
         <a
           href="/"
           className="back-link"
@@ -206,39 +226,28 @@ function GamePage({ game, onNavigate }) {
         >
           ← All games
         </a>
-        <h1 className="game-page-title">{game.title}</h1>
+        <h1 className="game-player-title">{game.title}</h1>
+        <button type="button" className="fullscreen-button" onClick={enterFullscreen}>
+          ⛶ Fullscreen
+        </button>
       </header>
 
-      <main className="game-page-main">
-        <div className="game-hero">
-          <CanvasBackground type={game.canvasType} />
-          <div className="game-thumbnail">
-            <GameIcon game={game} />
-          </div>
-        </div>
-
-        <p className="game-page-description">{game.description}</p>
-
-        <div className="game-tags">
-          {game.tags.map((tag) => (
-            <span key={tag} className="tag">{tag}</span>
-          ))}
-        </div>
-
-        <a
-          className="play-button play-button-large"
-          href={game.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => incrementPlayCount(game.slug)}
-        >
-          ▶ Play Now
-        </a>
-      </main>
-
-      <footer className="footer">
-        Built with fun in mind
-      </footer>
+      <iframe
+        key={game.slug}
+        ref={frameRef}
+        className="game-frame"
+        src={game.url}
+        title={game.title}
+        allow="fullscreen; autoplay; gamepad"
+        allowFullScreen
+        // No allow-top-navigation: an embedded game cannot navigate the site away.
+        // allow-same-origin stays so games keep their localStorage saves.
+        sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-modals"
+        referrerPolicy="strict-origin-when-cross-origin"
+        // Give the game keyboard focus so arrow keys and space reach it
+        // instead of scrolling the page.
+        onLoad={(e) => e.currentTarget.focus()}
+      />
     </div>
   )
 }
